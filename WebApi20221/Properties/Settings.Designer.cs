@@ -26,8 +26,8 @@ namespace WebApi20221.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-4FVJ3U1;Initial Catalog=personas20221;Integrated Security=Tru" +
-            "e")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-4FVJ3U1;Initial Catalog=personas20221;User ID=sa;Password=000" +
+            "0")]
         public string conexion {
             get {
                 return ((string)(this["conexion"]));

@@ -63,7 +63,8 @@ namespace WebApi20221.Controllers
             catch (Exception ex)
             {
                 var msg = ex.Message;
-              
+
+                datos = new { Vacio = true, Mensaje = msg };
             }
 
             return Request.CreateResponse(respuesta, datos, "application/json");
@@ -72,11 +73,11 @@ namespace WebApi20221.Controllers
 
         #region BuscarUno
         [HttpPost, Route("BuscarUno")]
-        public HttpResponseMessage BuscarUno([FromBody] Persona personaparam)
+        public HttpResponseMessage BuscarUno([FromBody] string personaparam)
         {
             object datos = null;
             HttpStatusCode respuesta = new HttpStatusCode();
-            Persona persona = new Persona();
+            Persona persona = null;
 
             try
             {
@@ -87,7 +88,7 @@ namespace WebApi20221.Controllers
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = "select * from personasdb where id = @id";
 
-                    cmd.Parameters.AddWithValue("@id", personaparam.Id);
+                    cmd.Parameters.AddWithValue("@id", personaparam);
 
                     connection.Open();
 
@@ -110,7 +111,7 @@ namespace WebApi20221.Controllers
                     else
                     {
                         respuesta = HttpStatusCode.OK;
-                        datos = new { Vacio = true, Mensaje = "No hay datos en la DB" };
+                        datos = new { Vacio = true, Mensaje = persona };
                     }
                 }
 
@@ -153,12 +154,12 @@ namespace WebApi20221.Controllers
                     if (resultado > 0)
                     {
                         respuesta = HttpStatusCode.OK;
-                        datos = new { Vacio = false, Mensaje = "Correcto Exitooooo" };
+                        datos = new { Vacio = false, Mensaje = resultado };
                     }
                     else
                     {
                         respuesta = HttpStatusCode.OK;
-                        datos = new { Vacio = true, Mensaje = "Error" };
+                        datos = new { Vacio = true, Mensaje = resultado };
                     }
                 }
 
@@ -202,12 +203,12 @@ namespace WebApi20221.Controllers
                     if (resultado > 0)
                     {
                         respuesta = HttpStatusCode.OK;
-                        datos = new { Vacio = false, Mensaje = "Correcto Exitooooo" };
+                        datos = new { Vacio = false, Mensaje = resultado };
                     }
                     else
                     {
                         respuesta = HttpStatusCode.OK;
-                        datos = new { Vacio = true, Mensaje = "Error" };
+                        datos = new { Vacio = true, Mensaje = resultado };
                     }
                 }
 
@@ -223,7 +224,7 @@ namespace WebApi20221.Controllers
 
         #region Actualizar
         [HttpPost, Route("Eliminar")]
-        public HttpResponseMessage Eliminar([FromBody] Persona personaparam)
+        public HttpResponseMessage Eliminar([FromBody] string personaparam)
         {
             object datos = null;
             HttpStatusCode respuesta = new HttpStatusCode();
@@ -239,7 +240,7 @@ namespace WebApi20221.Controllers
                     cmd.CommandText = "delete from personasdb where id = @id";
 
                 
-                    cmd.Parameters.AddWithValue("@id", personaparam.Id);
+                    cmd.Parameters.AddWithValue("@id", personaparam);
 
                     connection.Open();
 
@@ -250,12 +251,12 @@ namespace WebApi20221.Controllers
                     if (resultado > 0)
                     {
                         respuesta = HttpStatusCode.OK;
-                        datos = new { Vacio = false, Mensaje = "Correcto Exitooooo" };
+                        datos = new { Vacio = false, Mensaje = resultado };
                     }
                     else
                     {
                         respuesta = HttpStatusCode.OK;
-                        datos = new { Vacio = true, Mensaje = "Error" };
+                        datos = new { Vacio = true, Mensaje = resultado };
                     }
                 }
 
